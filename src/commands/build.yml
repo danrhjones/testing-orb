@@ -1,0 +1,34 @@
+description: >
+  This command builds the application and persists to a workspace
+
+steps:
+  - checkout
+  - run:
+      name: Install Node.js
+      command: |
+        curl -sSL "https://nodejs.org/dist/v10.21.0/node-v10.21.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v10.21.0-linux-x64/bin/node
+        curl https://www.npmjs.com/install.sh | sudo npm_install=6.14.11 sh
+  - run:
+      name: Installing php dependencies
+      command: |
+        composer install --no-dev --optimize-autoloader
+  - run:
+      name: Remove of any Git folders
+      command: |
+        rm -rf plugins/aws-services/.git
+        rm -rf plugins/chp-drag-drop-images/.git
+        rm -rf plugins/facebook-instant-articles-wp/.git
+        rm -rf plugins/the-sun-home-page-customiser/.git
+  - run:
+      name: Installing dependencies
+      command: npm run install-js-dependencies
+  - run:
+      name: Building customiser v2
+      command: npm run cv2:install && npm run cv2:build
+  - persist_to_workspace:
+      root: .
+      paths:
+        - vendor
+        - plugins
+        - themes
+        - client-mu-plugins
