@@ -4,12 +4,6 @@ description: >
 docker:
   - image: cimg/node:10.24.1
 
-parameters:
-  blah:
-    type: string
-    default: "ci"
-    description: "npm command to run"
-
 steps:
   - checkout
   - run_npm_command_with_cache:
@@ -23,5 +17,3 @@ steps:
   - run:
       name: Running gherkin lint
       command: npm run lint:gherkin
-  - run:
-      command: echo << parameters.blah >>
