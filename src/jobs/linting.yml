@@ -1,0 +1,19 @@
+description: >
+  This job lints any staged php and javascript files
+
+docker:
+  - image: cimg/node:10.24.1
+
+steps:
+  - checkout
+  - run_npm_command_with_cache:
+      command: ci
+  - run:
+      name: Running eslint
+      command: npm run lint:eslint
+  - run:
+      name: Running jshint
+      command: npm run lint:jshint
+  - run:
+      name: Running gherkin lint
+      command: npm run lint:gherkin

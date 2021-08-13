@@ -1,0 +1,22 @@
+description: >
+  This command runs the npm command with cache
+
+parameters:
+  command:
+    type: string
+    default: "ci"
+    description: "What will the cow say?"
+
+steps:
+  - restore_cache:
+      name: Restore npm cache
+      keys:
+        - v1-deps-{{ checksum "package-lock.json" }}
+  - run:
+      name: NPM install
+      command: npm << parameters.command >>
+  - save_cache:
+      name: Save npm cache
+      key: v1-deps-{{ checksum "package-lock.json" }}
+      paths:
+        - node_modules
