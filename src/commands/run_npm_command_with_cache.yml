@@ -5,7 +5,7 @@ parameters:
   command:
     type: string
     default: "ci"
-    description: "What will the cow say?"
+    description: "npm command to run"
 
 steps:
   - restore_cache:
