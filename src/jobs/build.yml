@@ -1,5 +1,8 @@
 description: >
-  This command builds the application and persists to a workspace
+  This job builds the application and persists to a workspace
+
+docker:
+  - image: circleci/php:7.4-browsers
 
 steps:
   - checkout
