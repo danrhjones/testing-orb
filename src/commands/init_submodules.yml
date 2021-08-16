@@ -1,0 +1,7 @@
+description: >
+  This command initialises and updates any git submodules
+
+steps:
+  - run:
+      name: Pull Git Submodules
+      command: git submodule update --init

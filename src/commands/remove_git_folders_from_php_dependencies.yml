@@ -1,0 +1,11 @@
+description: >
+  This command deletes git folders
+
+steps:
+  - run:
+      name: Remove of any Git folders
+      command: |
+        rm -rf plugins/aws-services/.git
+        rm -rf plugins/chp-drag-drop-images/.git
+        rm -rf plugins/facebook-instant-articles-wp/.git
+        rm -rf plugins/the-sun-home-page-customiser/.git

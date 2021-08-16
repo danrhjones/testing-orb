@@ -1,0 +1,7 @@
+description: >
+  This command adds domains to the host file
+
+steps:
+  - run:
+      name: Add domains to hosts file
+      command: echo 127.0.0.1 thesuncom.thesun.local scottishsun.thesun.local dreamteam.thesun.local talksport.thesun.local theirishsun.thesun.local tnl.local thesun.local | sudo tee -a /etc/hosts
