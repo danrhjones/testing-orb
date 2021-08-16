@@ -3,7 +3,7 @@ description: >
 
 machine:
   image: ubuntu-2004:202010-01
-parallelism: 4
+parallelism: << parameters.parallelism-size>>
 parameters:
   wp-version:
     type: string
@@ -11,6 +11,9 @@ parameters:
   resource-size:
     type: string
     default: "medium"
+  parallelism-size:
+    type: integer
+    default: 1
 resource_class: << parameters.resource-size>>
 steps:
   - checkout
