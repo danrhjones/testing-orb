@@ -2,5 +2,5 @@ description: >
   This command runs the npm install-js-dependencies command
 
 steps:
-  - run_npm_command_with_cache:
+  - run:
       command: run install-js-dependencies
