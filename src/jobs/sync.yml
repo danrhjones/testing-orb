@@ -1,0 +1,35 @@
+description: >
+  This job runs every time to ensure we keep the News UK repository in sync with the VIP repo
+
+docker:
+  - image: circleci/buildpack-deps:18.04
+
+parameters:
+  ssh-fingerprint:
+    type: string
+  git-repo-to-sync-to:
+    type: string
+
+steps:
+  - checkout:
+      path: checkout-tmp
+  - run:
+      name: Cleanup temporary checkout
+      command: rm -rf checkout-tmp
+  - run:
+      name: Mirror clone from VIP repository
+      command: git clone --mirror ${CIRCLE_REPOSITORY_URL} readonly
+  - run:
+      name: Remove GitHub PR references
+      # https://stackoverflow.com/questions/37985275/how-can-i-exclude-pull-requests-from-git-mirror-clone/39764408#39764408
+      command: cd readonly && git show-ref | cut -d ' ' -f2 | grep 'pull' | xargs -r -L1 git update-ref -d
+  - add_ssh_keys:
+      fingerprints:
+        # CircleCI Sync Fingerprint
+        - << parameters.ssh-fingerprint >>
+  - run:
+      name: Add the News UK repository as the readonly remote
+      command: cd readonly && git remote add readonly << parameters.git-repo-to-sync-to >>
+  - run:
+      name: Push mirror to News UK (readonly) repository
+      command: cd readonly && git push --mirror readonly
