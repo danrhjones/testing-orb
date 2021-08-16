@@ -4,7 +4,7 @@
 
 
 
-A NewsUK orb, that will simplify the workflow for building, syncing, deploying and testing The Suns wordpress instance
+A NewsUK orb, that will simplify the workflow for building, syncing, deploying and testing The Suns Content Platform team
 
 
 
