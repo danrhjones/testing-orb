@@ -4,16 +4,21 @@ description: >
 docker:
   - image: circleci/php:7.4-browsers
 
+parameters:
+  first-npm-command:
+    type: string
+  second-npm-command:
+    type: string
+
 steps:
   - checkout
   - install_nodejs
   - install_php_dependencies
   - remove_git_folders_from_php_dependencies
   - run_npm_command_with_cache:
-        command: run install-js-dependencies
-  - run:
-      name: Building customiser v2
-      command: npm run cv2:install && npm run cv2:build
+        command: << parameters.first-npm-command >>
+  - run_npm_command_with_cache:
+      command: << parameters.second-npm-command >>
   - persist_to_workspace:
       root: .
       paths:
