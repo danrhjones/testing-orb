@@ -1,0 +1,30 @@
+description: >
+  This job builds the application and persists to a workspace
+
+machine:
+  image: ubuntu-2004:202010-01
+parallelism: 4
+parameters:
+  wp-version:
+    type: string
+    default: "latest"
+  resource-size:
+    type: string
+    default: "medium"
+resource_class: << parameters.resource-size>>
+steps:
+  - checkout
+  - attach_workspace:
+      at: .
+  - init_submodules
+  - run:
+      name: npm install
+      command: |
+        npm ci
+  - add_local_hostnames
+  - run_cypress_tests:
+      wp-version: "<< parameters.wp-version >>"
+  - store_artifacts:
+      path: tests/functional/cypress/screenshots
+  - store_test_results:
+      path: test_results
