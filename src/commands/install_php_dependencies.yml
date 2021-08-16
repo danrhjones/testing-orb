@@ -1,5 +1,5 @@
 description: >
-  This command installs php dependencies
+  This command installs php dependencies skipping packages listed in require-dev.
 
 steps:
   - run:

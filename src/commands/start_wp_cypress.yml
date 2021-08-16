@@ -1,0 +1,17 @@
+description: >
+  This command starts wp-cypress
+
+parameters:
+  wp-version:
+    type: string
+    default: latest
+steps:
+  - run:
+      name: Set WordPress version in cypress.json
+      command: |
+        cd ~/project
+        sed -i 's/"version": \["[0-9]*.[0-9]*"\],/"version": ["<< parameters.wp-version >>"],/g' cypress.json
+        sed -i 's/"TAGS": "not (@wip or @ignore)"/"TAGS": "not (@wip or @ignore or @failing-<< parameters.wp-version >>)"/g' cypress.json
+  - run:
+      name: Run WP Cypress
+      command: npx wp-cypress start

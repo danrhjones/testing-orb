@@ -1,0 +1,16 @@
+description: >
+  This command runs visual cypress tests
+
+parameters:
+  wp-version:
+    type: string
+    default: latest
+steps:
+  - start_wp_cypress:
+      wp-version: "<< parameters.wp-version >>"
+  - run:
+      name: Run visual regression tests
+      command: npm run test:cypress:visual-tests
+      environment:
+        - CYPRESS_SNAPSHOT_BASE_DIRECTORY: tests/functional/cypress/vis/base/<< parameters.wp-version >>/
+        - CYPRESS_SNAPSHOT_DIFF_DIRECTORY: tests/functional/cypress/vis/diff/<< parameters.wp-version >>/

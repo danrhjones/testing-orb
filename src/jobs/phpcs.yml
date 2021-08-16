@@ -1,0 +1,11 @@
+description: >
+  This job runs phpcs
+
+docker:
+  - image: circleci/php:7.4-browsers
+steps:
+  - checkout
+  - install_php_dependencies_with_dev
+  - run:
+      name: Running PHPCS
+      command: composer run phpcs

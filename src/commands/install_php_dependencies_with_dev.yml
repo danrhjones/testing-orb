@@ -1,0 +1,18 @@
+description: >
+  This command installs php dependencies
+
+steps:
+  - restore_cache:
+      name: Restore Composer cache
+      keys:
+        - composer-v1-{{ checksum "composer.lock" }}
+        - composer-v1-
+  - run:
+      name: Composer install
+      command: composer install
+  - remove_git_folders_from_php_dependencies
+  - save_cache:
+      name: Save Composer cache
+      key: composer-v1-{{ checksum "composer.lock" }}
+      paths:
+        - vendor

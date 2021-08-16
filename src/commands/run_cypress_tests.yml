@@ -1,0 +1,14 @@
+description: >
+  This command runs cypress tests
+
+parameters:
+  wp-version:
+    type: string
+    default: latest
+steps:
+  - start_wp_cypress:
+      wp-version: "<< parameters.wp-version >>"
+  - run:
+      name: Run Cypress tests
+      command: |
+        ./node_modules/cypress/bin/cypress run --spec "$( circleci tests glob tests/functional/cypress/integration/**/*.feature | circleci tests split --split-by=timings | paste -sd "," -)" --reporter cypress-circleci-reporter
