@@ -3,4 +3,4 @@ description: >
 
 steps:
   - run:
-      command: run install-js-dependencies
+      command: npm run install-js-dependencies

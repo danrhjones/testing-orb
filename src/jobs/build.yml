@@ -9,7 +9,7 @@ steps:
   - install_nodejs
   - install_php_dependencies
   - remove_git_folders_from_php_dependencies
-  - install_js_dependencies_with_cache
+  - install_js_dependencies
   - run:
       name: Building customiser v2
       command: npm run cv2:install && npm run cv2:build
