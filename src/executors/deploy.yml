@@ -1,0 +1,12 @@
+description: >
+  This is the executor used for deploying
+
+docker:
+  - image: cimg/<<parameters.version>>
+parameters:
+  version:
+    default: base:2021.01
+    description: >
+      Pick a specific cimg variant:
+      https://circleci.com/developer/images/image/cimg/base
+    type: string
