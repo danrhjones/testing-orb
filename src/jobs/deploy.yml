@@ -1,0 +1,27 @@
+description: >
+  This job deploys the build to the stated environment
+
+executor:
+  name: deploy
+  version: base:2021.01
+
+parameters:
+  ssh-fingerprint:
+    type: string
+  environment:
+    type: string
+
+steps:
+  - checkout
+  - attach_workspace:
+      at: .
+  - add_ssh_keys:
+      fingerprints:
+        # CircleCI Deploy Fingerprint
+        - << parameters.ssh-fingerprint >>
+  - run:
+      name: Deploy -built branch to github
+      command: VIP_ENVIRONMENT=<< parameters.environment >> bash ./.circleci/deploy.sh
+  - run:
+      name: Is the environment running?
+      command: bash ./.circleci/status.sh << parameters.environment >>
