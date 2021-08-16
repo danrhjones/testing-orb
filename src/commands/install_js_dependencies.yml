@@ -1,6 +1,0 @@
-description: >
-  This command runs the npm install-js-dependencies command
-
-steps:
-  - run:
-      command: npm run install-js-dependencies
