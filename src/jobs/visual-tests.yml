@@ -1,10 +1,9 @@
 description: >
-  This job runs the cypress tests
+  This job runs the visual cypress tests
 
 executor:
   name: ubuntu
   version: 2004:202010-01
-parallelism: << parameters.parallelism-size>>
 parameters:
   wp-version:
     type: string
@@ -12,9 +11,6 @@ parameters:
   resource-size:
     type: string
     default: "medium"
-  parallelism-size:
-    type: integer
-    default: 1
 resource_class: << parameters.resource-size>>
 steps:
   - checkout
@@ -26,9 +22,13 @@ steps:
       command: |
         npm ci
   - add_local_hostnames
-  - run_cypress_tests:
+  - run_visual_regression_tests:
       wp-version: "<< parameters.wp-version >>"
   - store_artifacts:
       path: tests/functional/cypress/screenshots
+  - store_artifacts:
+      path: tests/functional/cypress/vis/diff
+  - store_artifacts:
+      path: tests/functional/cypress/vis/base
   - store_test_results:
       path: test_results
