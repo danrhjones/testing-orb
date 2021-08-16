@@ -13,7 +13,7 @@ steps:
       keys:
         - v1-deps-{{ checksum "package-lock.json" }}
   - run:
-      name: NPM install
+      name: NPM << parameters.command >>
       command: npm << parameters.command >>
   - save_cache:
       name: Save npm cache
